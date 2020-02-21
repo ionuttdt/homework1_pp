@@ -1,0 +1,73 @@
+Duta Viorel-Ionut
+321CB, Tema1 PP
+
+============================ Observatii generale ==============================
+
+	In README am explicat, in mare, modul in care am rezolvat subpunctul 
+respectiv, ce fac functiile auxiliare fiind explicat in scheletul de cod.
+Am preferat sa fac acest lucru pentru ca am folosit mule functii auxiliare si
+daca le explicam pe fiecare aici, nu se mai intelegea nimic.
+	Am folosit exagerat de multe functii auxiliare (unele se repeta intr-o anumita
+masura), acest lucru fiind un rezultat al modului in care mi-am structurat
+subpunctele (le am gandit separat, nu am refolosit prea mult cod).
+	Va multumesc pentru intelegere!
+
+================================= Subpunct a ==================================
+
+	Pentru acest exercitiu am definit data ClassState ca avand cate un camp 
+pentru numele clasei, numele clasei parinte, variabile si functii. Pentru 
+ultimele doua am folosit cate o lista de liste de stringuri, fiecare lista avand
+formatul unuei variabile, respectiv functii. Am ales implementarea cu liste in
+detrimentul Map-ului din Haskell pentru ca mi se pare mai usor atunci cand 
+intorc o lista sau o variabila.
+	Pentru initEmptyClass construiesc un ClassState cu toate cele patru elemente
+void, iar pentru celelalte doua functii verific tipul (Var sau Func) si adaug
+sau returnez in fuctie de el. Implementarea ClassState-ului imi permite sa intorc
+direct  lista cu variabile, respectiv functii, iar din aceasta cauza 
+implementarea este foarte intuitiva.
+
+================================= Subpunct b ==================================
+
+	Functiile auxiliare pe care le-am folosit au fost descrie in codul sursa 
+pentru a usura intelegerea codului. Am ales sa pastrez functiile wordsBy si
+wordsBy2, chiar daca wordsBy3 poate sa "le faca treaba" pentru ca este o functie
+mai generala pentru a usura intelegrea codului (nu chiar, am dezoltat functiile
+in functie de necesitate).
+	Am deifinit data Instruction ca fiind [String] pentru a face parsarea
+completa in functie de tipul instructiunii. Functia parse doar ia fiecare 
+linie diferita de '\n' si o considera ca fiind o instructiune care urmeaza sa
+fie tratata.
+	Functia interpret verifica ce trebuie sa daca instructiunea primita, si in 
+functie de asta apeleaza newClass, add Var, respectiv addFunc (functii descrise
+in codul sursa). Am incercat sa ma folosesc cat mai mult de functiile auxiliare
+pentru a usura intelegerea si scrierea fectiva a codului. In cadrul acestei 
+functii doar verific ce trebuie sa fac si apelez functia corespunzatoare.
+	Functiile de validare sunt suficient de intuitive si restranse ca numar de
+linii, ele facand fix ce le spune numele (parcurg lista de clase).
+
+	Observatii:
+		- cele trei functii wordsBy puteau fi reduse la ultima functie (wordsBy3)
+
+================================= Subpunct c ==================================
+
+    Fiecare functie va avea o scurta descriere in fata, iar functionalitatea
+exercitiului va fi explicata aici (mai putin inferAux). 
+	Pornesc de la premisa ca o expresie incepe mereu cu evaluarea unei functii.
+Pentru a gasi (daca exista) functia respectiva trebuie sa construiesc lista 
+[<nume_functie>, <tip_param_1>, ... <tip_param_n>] (are semnificatie de semnatura
+pentru fiecare functie). Constructia acestei lise o fac cu ajutorul functiei 
+inferAux; de fiecare data cand gasesc o variabila o evaluez si, daca este cazul,
+o adaug in lista. Daca in lista de expresii se gaseste o functie, aplelez 
+functia inferAux cu lista de parametri [] (lista de perametri stocheaza 
+parametri calculatie pana in acel moment), iar rezultatul acestei noi functii
+va fi adaugat (daca este diferit de Nothing) in lista de parametri ai functiei
+din care face parte. In acest mod, prima functie care va fi analizata (daca nu
+sunt gasite functii sau variabile nevalide) va fi functia frunza.
+	Functia inferAux verifica daca in (head [Expr]) am variabila - si in caz
+afirmativ o adaug in lista auxiliara unde stochez parametri - sau functie -
+caz in care apelez iar functia inferAux cu aux = []-. Evaluarea unei functii se
+face doar cand lista [Expr] este goala, iar dupa, se continua evaluarea functiilor
+amanate pentru a putea continua evaluarea urmatoarei functii.
+
+=================================== Bounus ====================================
+	Va urma...
